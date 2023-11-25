@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/result.css">
+    <title>Crop_Forcasting</title>
+</head>
+<body>
+    <div class="nav"><a href="/home">Home</a></div>
+    <div class="date">{{month}} / {{year}}</div>
+    <div class="commoditycontainer">
+        <div id="cropimg" class="commodityimg"><img src={{cropface}} alt=""></div>
+        <div class="currcommoditystatistics">
+            {% if prediction %}
+            <div class="currAvgprice"><p>Average Price</p>{{avg_value}}  /quintal</div>
+            <div class="minprice"><p>Min Price</p>{{min_value}} /quintal</div>
+            <div class="maxprice"><p>Max Price</p>{{max_value}} /quintal</div>
+            {% endif %}
+        </div>
+        <div class="maxminyear">
+            <p class="type">Maximum Price</p>
+            <div class="max">
+                <p>Month : {{goldmonth}}</p>
+                <p>Price : {{maxlow}} - {{maxhigh}} /quintal</p>
+                <p>Expected rainfall : Medium</p>
+            </div>
+            <p class="type">Minimum Price</p>
+            <div class="min">
+                <p>Month : {{silvermonth}}</p>
+                <p>Price : {{minlow}} - {{minhigh}} /quintal</p>
+                <p>Expected rainfall : Medium</p>
+            </div>
+            <p class="condition">If their is variation in actual rainfall and expected rainfall then prediction may goes wrong</p>
+        </div>
+    </div>
+
+    <div class="prevyeargraph">
+        <h2 style="font-family:sans-serif;font-weight:600;color: blueviolet;">Price Analysis of Current Year - {{year}}</h2>
+        <div  style="width:800px !important;height:400px !important;" >
+            <canvas id="myChart"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx = document.getElementById('myChart');
+        
+            new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ['jan', 'feb', 'march', 'April','may', 'june', 'july','aug','sept','oct','nov','dec'],
+                datasets: [{
+                  label: 'crop price per quintal',
+                  data: {{mspyear}},
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          </script>    
+    </div>
+
+    <div class="nextyeargraph">
+        <h2 style="font-family:sans-serif;font-weight:600;color: blueviolet;">Price Analysis Upcoming Year - {{NextYear}}</h2>
+        <div style="width:800px !important;height:400px !important;" >
+            <canvas id="myChart1"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx1 = document.getElementById('myChart1');
+        
+            new Chart(ctx1, {
+              type: 'line',
+              data: {
+                labels: ['jan', 'feb', 'march', 'April','may', 'june', 'july','aug','sept','oct','nov','dec'],
+                datasets: [{
+                  label: 'crop price per quintal',
+                  data: {{mspnextyear}},
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          </script>    
+    </div>
+    <footer>
+        
+    </footer>
+<script src="/static/script/result.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop_Statistics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/crop_statistics.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/home">
+        <img
+          class="navimg"
+          src="/static/images/commoditylogo.webp"
+          alt="logo"
+          loading="lazy"
+        />
+      </a>
+      <p>Crop Sowing Analysis / पीक पेरणीचे विश्लेषण  &  Crop Sowing Guide / पीक पेरणी मार्गदर्शक</p>
+    </div>
+    <a class="back" href="/home">Back</a>
+  </nav>
+
+  <label style="margin:30px auto auto 50px;font-size:20px;" for=".commodity">Crops / पिके</label>
+  <div class="commodity">
+    <div class="card commoditycard">
+      <img class="card-img-top commoditylogo" src="/static/images/jowarlogo.webp" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Jowar</h5>
+        <a href="/Jowar" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/bajralogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Bajara</h5>
+       <a href="/Bajara" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/cottonlogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Cotton</h5>
+      <a href="/Cotton" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/sugarcanelogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Sugarcane</h5>
+        <a href="/Sugarcane" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/wheatlogo.avif" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Wheat</h5>
+        <a href="/Wheat" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- districts blocks -->
+  <label style="margin:30px auto auto 50px;font-size:20px;" for=".commodity">Districts / जिल्हानिहाय</label>
+  <div class="commodity">
+    <div style="border: none;" class="card commoditycard">
+      <img class="card-img-top commoditylogo" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Solapur_district_tehsils_Marathi.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Solapur</h5>
+        <a href="/Solapur" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div style="border: none;" class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/bajralogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Nanded</h5>
+       <a href="/Nanded" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div style="border: none;" class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/cottonlogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Buldhana</h5>
+      <a href="/Buldhana" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div style="border: none;" class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="/static/images/sugarcanelogo.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Amaravati</h5>
+        <a href="/Amaravati" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+
+    <div style="border: none;" class="card commoditycard">
+      <img  class="card-img-top commoditylogo" src="https://d3pc1xvrcw35tl.cloudfront.net/images/1200x900/aurangabad-png-image-11411_201911329764.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Sambhajinagar</h5>
+        <a href="/Sambhajinagar" class="btn btn-primary">Explore</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="state_statistics">
+    <label style="margin-left:50px;font-size:25px;font-family: sans-serif;">State Crop Statistics</label>
+    <div class="crop_details">
+    <div  class="maharashtramap">
+      <h4 style="color:gray;">Maharashtra Crop Map</h4>
+      <img id="mahamap" src="/static/images/maharashtra-agriculture-map.jpg" alt="">
+    </div>
+    <div style="margin-left:200px;" class="piegraphofcrop">
+        <h4 style="font-family:sans-serif;font-weight:600;color:gray;">Maharashtra Crop Data</h4>
+        <div  style="width:600px !important;height:300px !important;" >
+        <canvas id="myChartpie"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        const ctxpie = document.getElementById('myChartpie');
+        new Chart(ctxpie, {
+          type: 'pie',
+          data: {
+            labels: ['Jowar','Bajara','cotton','sugarcane','wheat'],
+            datasets: [{
+              label: 'crop sowing data',
+              data: {{crop_state_data}},
+              borderWidth: 1
+            }]
+          },
+        });
+        </script>   
+      </div>
+   </div>
+   <div class="cropbar">
+      <h4 style="color:gray;margin-bottom:30px;">Crop Sowing Data In Maharashtra</h4>
+      <div  style="width:800px !important;height:400px !important;" >
+        <canvas id="myChartbar"></canvas>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        const ctxbar = document.getElementById('myChartbar');
+        new Chart(ctxbar, {
+          type: 'bar',
+          data: {
+            labels: ['Jowar','Bajara','cotton','sugarcane','wheat'],
+            datasets: [{
+              label: 'crop sowing data',
+              data: {{crop_state_data}},
+              borderWidth: 1
+            }]
+          },
+        });
+      </script>  
+   </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

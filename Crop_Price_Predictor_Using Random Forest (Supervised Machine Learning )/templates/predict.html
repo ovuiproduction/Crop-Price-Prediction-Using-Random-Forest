@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Predict</title>
+</head>
+<body>
+
+    <nav>
+        <div class="logotext"><span style="color:rgb(255, 94, 25);">Crop</span> Price <span style="color: green;">Forcasting</span></div>
+        <div class="nav-content">
+        <div class="nav-2"><a href="/home">Home</a></div>
+        
+        <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Commodity List
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Jowar</a></li>
+              <li><a class="dropdown-item" href="#">Wheat</a></li>
+              <li><a class="dropdown-item" href="#">Bajra</a></li>
+              <li><a class="dropdown-item" href="#">Sugarcane</a></li>
+              <li><a class="dropdown-item" href="#">Cotton</a></li>
+            </ul>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Help
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://www.weather25.com/asia/india?page=month&month=January">Rainfall Values</a></li>
+            </ul>
+          </div>
+        <div class="nav-2"><a href="">contact</a></div>
+
+        </div>
+    </nav>
+
+    <div class="form">
+        <form action="/result" method="post">
+        <div class="formcontent">
+            <label for="commodityname">CommodityName</label>
+            <input name="commodityname" type="text" placeholder="Ex 'Jowar'">
+        </div>
+        <div class="formcontent">
+            <label for="month">Month</label>
+            <input name="month" type="number" placeholder="Between 1 to 12">
+        </div>
+        <div class="formcontent">
+            <label for="year">Year</label>
+            <input name="year" type="number" placeholder="Ex '2023'">
+        </div>
+        <div class="formcontent">
+            <label for="average_rain_fall">Average_rain_fall in mm</label>
+            <input name="average_rain_fall" type="number" step="any" placeholder="Ex '67.6'">
+        </div>
+      
+        <div class="formcontent">
+            <label for="checkbox">Are you sure to continue ?</label>
+            <input id="checkbox" type="checkbox">
+        </div>
+        <button class="submitbtn">Submit</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

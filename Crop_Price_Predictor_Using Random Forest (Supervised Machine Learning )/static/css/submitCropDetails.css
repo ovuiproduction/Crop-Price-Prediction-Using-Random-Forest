@@ -1,0 +1,91 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color:rgba(165, 227, 227, 0.1);
+}
+nav{
+    height:100px;
+    width:100%;
+    background-color:rgba(169, 118, 181, 0.2);
+    margin:0px;
+    padding:0px;
+    display: flex;
+}
+nav a{
+    cursor: pointer;
+    display: flex;
+    width:100px;
+    height:50px;
+    margin:30px 100px auto auto;
+    text-decoration: none;
+    color:rgb(0, 161, 19);
+    font-family: cursive;
+    font-weight:500;
+    font-size:20px;
+    background-color:rgb(197, 197, 197);
+    align-items: center;
+    justify-content: center;
+}
+
+nav a:hover{
+    background-color:rgb(238, 239, 240);
+}
+
+.container{
+  width:max-content;
+    display:inline-block;
+    margin-top:25px;
+    margin-left:50px;
+    color:green;
+    font-size:30px;
+}
+nav h2{
+    margin:0px;
+    padding:0px;
+}
+form{
+    background-color:green;
+    display: block;
+    margin:150px auto auto auto;
+    width:max-content;
+    padding:20px;
+    padding-bottom:30px;
+    border-radius:5px;
+  }
+  
+  .formcontent{
+    width:750px;
+    padding:20px;
+  }
+  .formcontent input{
+    background-color:whitesmoke;
+    border-radius:5px;
+    border:2px solid rgb(224, 215, 215);
+    display: block;
+    width:70%;
+    height:40px;
+    margin:0px auto auto auto;
+    font-family: cursive;
+  }
+
+  form button{
+    border-radius:10px;
+    font-size:20px;
+    background-color:rgb(14, 12, 75);
+    color:rgb(72, 255, 0);
+    border:2px solid rgb(14, 12, 75);
+    width:80%;
+    cursor: pointer;
+    height:40px;
+    font-family: cursive;
+    margin-top:30px;
+    margin-left:75px;
+  }
+  .submitbtn:hover{
+    color:aliceblue;
+  }
+  
+  .commoditylist{
+    margin-top:30px;
+    margin-left:80px;
+  }
