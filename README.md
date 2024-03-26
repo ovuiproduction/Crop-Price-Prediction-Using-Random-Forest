@@ -122,7 +122,7 @@ Demo Video link
 
 (https://drive.google.com/drive/folders/1RtQuL1ES1gaHTH7yepRGE3mqI8t23SsS?usp=sharing)
 
-## Author
+## Contributors
 
 -- Onkar Waghmode
 -- Shripad Wattamwar
