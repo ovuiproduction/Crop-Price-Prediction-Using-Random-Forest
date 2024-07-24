@@ -1,14 +1,9 @@
 
 # Crop Price Prediction Using Random Forest (Supervised Machine learning Algorithm)
 
+#### [Research Paper](https://internationalpubls.com/index.php/cana/article/view/762)
+
 This proposed system aims to enhance agricultural price prediction by analyzing a comprehensive dataset encompassing five years of historical price data. The primary focus is on evaluating the efficacy of machine learning algorithms, specifically Decision Trees and Random Forest, to accurately forecast agricultural commodity prices. Recognizing the significance of factors such as market demand, geopolitical events, government policies, and meteorological conditions like rainfall and temperature, the system aims to contribute to global food production, economic stability, and food security. By providing precise price forecasts, the system benefits farmers, insurance companies, and businesses involved in supply chain management. The approach involves a deep analysis of existing challenges and proposes a sophisticated solution to address them, ultimately contributing to the advancement of the agricultural sector.The system also offers a platform where farmers can view the crop sowing trends in different regions and decide which crop will give them maximum benefits. We provide a basic overview of the current crop sowing data, which shows which crops are planted by other farmers in which regions. This helps the farmers avoid low prices due to excessive crop production and serves as a crop sowing guide.
-
-
-
-
-
-
-
 
 
 ## Tech Stack
