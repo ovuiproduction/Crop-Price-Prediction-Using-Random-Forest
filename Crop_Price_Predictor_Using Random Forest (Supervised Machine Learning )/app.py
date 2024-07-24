@@ -20,8 +20,9 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="onkar2004",
-  database="crop_sowing_data"
+  password="<your_password>",
+  database="<data_base_name>"
+  # here my database name is : crop_sowing_data
 )
 
 # Cursor for Data base
