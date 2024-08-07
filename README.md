@@ -91,25 +91,25 @@ http://127.0.0.1:5000
 
 Clone the project
 
-```bash
+```
   git clone https://github.com/ovuiproduction/Crop_Price_Predictor_Using-Random-Forest-Supervised-Machine-Learning-.git
 ```
 
 Go to the project directory
 
-```bash
+```
   cd <folder name>
 ```
 
 Install dependencies
 
-```bash
+```
   pip install numpy,pandas,matplotlib,scikit-learn,scipy,flask;
 ```
 
 Start the server
 
-```bash
+```
   python app.py
 ```
 
