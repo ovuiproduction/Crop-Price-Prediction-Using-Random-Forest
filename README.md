@@ -76,7 +76,7 @@ To deploy this project
 
 ```
 
-````After running command successfully project is active on this link
+```After running command successfully project is active on this link
 
 http://127.0.0.1:5000
 
