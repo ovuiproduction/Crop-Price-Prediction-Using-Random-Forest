@@ -47,7 +47,7 @@ prerequisite -
 ``` for pip install run this two commond on cmd
 
     curl https://bootst/rap.pypa.io/get-pip.py -o get-pip.py
-
+    
     python get-pip.py
 
 ```
@@ -71,6 +71,7 @@ To deploy this project
 
 ```run on bash or terminal
 
+    cd src
     python app.py
 
 ```
