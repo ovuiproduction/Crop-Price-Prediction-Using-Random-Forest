@@ -95,7 +95,7 @@ Clone the project
 Go to the project directory
 
 ```
-  cd <folder name>
+  cd src
 ```
 
 Install dependencies
@@ -119,7 +119,7 @@ Demo Video link
 
 ## Contributors
 
--- Onkar Waghmode
--- Shripad Wattamwar
--- Atharva Wagh
--- Aditya Zite
+1. Onkar Waghmode
+2. Shripad Wattamwar
+3. Atharva Wagh
+4. Aditya Zite
