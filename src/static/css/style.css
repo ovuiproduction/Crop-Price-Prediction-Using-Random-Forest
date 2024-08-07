@@ -1,0 +1,127 @@
+body{
+  margin: 0px;
+  padding:0px;
+  background-color: forestgreen;
+  color:aliceblue;
+}
+
+
+nav{
+  position: fixed;
+  top:0px;
+  background-color:rgba(0, 239, 12, 0.5);
+  width:100%;
+  height:70px;
+  display:flex;
+  align-items: center;
+}
+
+.logotext{
+  font-size:25px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+  margin-left:10%;
+  color: rgb(249, 251, 249);
+}
+
+nav .nav-content{
+  height:max-content;
+  margin:auto 30px auto auto;
+  width:40%;
+  display: flex;
+  align-items: center;
+  column-gap:10%;
+}
+
+nav .nav-content .nav-2{
+  width:max-content;
+}
+nav .nav-content .nav-2 a{
+  font-size:20px;
+  color:rgb(241, 236, 232);
+  font-family:sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+}
+nav .nav-content .nav-2 a:hover{
+  text-decoration: underline;
+}
+
+nav .nav-content .nav-3{
+  width:max-content;
+  margin:0px 20px 0px auto;
+}
+nav .nav-content .nav-3 a{
+  font-size:20px;
+  color: rgb(200, 238, 231);
+  font-family:sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+}
+nav .nav-content .nav-3 a:hover{
+  text-decoration: underline;
+}
+
+.form{
+  margin:100px auto auto auto;
+  width:max-content;
+  padding:10px;
+  height:max-content;
+}
+
+.from form{
+  display: block;
+  /* margin:0px auto auto auto; */
+  width:max-content;
+  padding:10px;
+}
+
+.formcontent{
+  width:500px;
+  padding:20px;
+}
+.formcontent input{
+  border-radius:5px;
+  border:2px solid white;
+  display: block;
+  width:70%;
+  height:30px;
+}
+.formcontent select{
+  border-radius:5px;
+  margin-top:5px;
+  display: block;
+  width:70%;
+  height:30px;
+}
+
+#checkbox{
+  width:30px;
+  height:30px;
+}
+
+label{
+  font-size:15px;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+.submitbtn{
+  border-radius:10px;
+  margin-left:5%;
+  font-size:20px;
+  background-color:rgb(14, 12, 75);
+  color:rgb(72, 255, 0);
+  border:2px solid rgb(14, 12, 75);
+  width:70%;
+  cursor: pointer;
+  height:40px;
+  font-family: cursive;
+}
+.submitbtn:hover{
+  color:aliceblue;
+}
+
+input{
+  font-size :15px;
+  font-family: cursive;
+}

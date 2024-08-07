@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/result.css">
+    <title>Crop-Forcasting</title>
+</head>
+<body>
+    <div class="nav"><a href="/home">Home</a></div>
+    <div class="date">{{month}} / {{year}}</div>
+    <div class="commoditycontainer">
+        <div id="cropimg" class="commodityimg"><img src={{cropface}} alt=""></div>
+        <div class="currcommoditystatistics">
+            {% if prediction %}
+            <div class="currAvgprice"><p>Average Price</p>{{avg_value}}  /quintal</div>
+            <div class="minprice"><p>Min Price</p>{{min_value}} /quintal</div>
+            <div class="maxprice"><p>Max Price</p>{{max_value}} /quintal</div>
+            {% endif %}
+        </div>
+        <div class="maxminyear">
+            <p class="type">Maximum Price</p>
+            <div class="max">
+                <p>Month : {{goldmonth}}</p>
+                <p>Price : {{maxlow}} - {{maxhigh}} /quintal</p>
+                <p>Expected rainfall : Medium</p>
+            </div>
+            <p class="type">Minimum Price</p>
+            <div class="min">
+                <p>Month : {{silvermonth}}</p>
+                <p>Price : {{minlow}} - {{minhigh}} /quintal</p>
+                <p>Expected rainfall : Medium</p>
+            </div>
+            <p class="condition">If their is variation in actual rainfall and expected rainfall then prediction may goes wrong</p>
+        </div>
+    </div>
+
+    <div class="prevyeargraph">
+        <h2 style="font-family:sans-serif;font-weight:600;color: blueviolet;">Price Analysis of Current Year - {{year}}</h2>
+        <div  style="width:800px !important;height:400px !important;" >
+            <canvas id="myChart"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            let mspyearString = JSON.parse('{{ mspyear|tojson|safe }}');
+            mspyearString  = mspyearString.slice(1,-1);
+            const mspyear = mspyearString.split(',').map(Number);  
+    
+            let minPriceYearString = JSON.parse('{{ minPriceYear|tojson|safe }}');
+            minPriceYearString  = minPriceYearString.slice(1,-1);
+            const avgPriceyear = minPriceYearString.split(',').map(Number);  
+    
+            const ctx = document.getElementById("myChart");
+            const chart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: [
+                  "jan",
+                  "feb",
+                  "march",
+                  "April",
+                  "may",
+                  "june",
+                  "july",
+                  "aug",
+                  "sept",
+                  "oct",
+                  "nov",
+                  "dec",
+                ],
+                datasets: [
+                  {
+                    label: "Max crop price per quintal",
+                    data: mspyear,
+                    borderWidth: 1,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                  },
+                  {
+                    label: "Min crop price per quintal",
+                    data: avgPriceyear,
+                    borderWidth: 1,
+                    borderColor: '#FF6384',
+                    backgroundColor: '#FFB1C1',
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          </script>
+    </div>
+
+    <div class="nextyeargraph">
+        <h2 style="font-family:sans-serif;font-weight:600;color: blueviolet;">Price Analysis Upcoming Year - {{NextYear}}</h2>
+        <div style="width:800px !important;height:400px !important;" >
+            <canvas id="myChart1"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            let mspnextyearString = JSON.parse('{{ mspnextyear|tojson|safe }}');
+            mspnextyearString  = mspnextyearString.slice(1,-1);
+            const mspnextyear = mspnextyearString.split(',').map(Number);  
+        
+            let minPriceNextYearString = JSON.parse('{{ minPriceNextYear|tojson|safe }}');
+            minPriceNextYearString  = minPriceNextYearString.slice(1,-1);
+            const avgPriceNextyear = minPriceNextYearString.split(',').map(Number);  
+    
+            const ctx1 = document.getElementById("myChart1");
+    
+            new Chart(ctx1, {
+              type: "line",
+              data: {
+                labels: [
+                  "jan",
+                  "feb",
+                  "march",
+                  "April",
+                  "may",
+                  "june",
+                  "july",
+                  "aug",
+                  "sept",
+                  "oct",
+                  "nov",
+                  "dec",
+                ],
+                datasets: [
+                  {
+                    label: "Max crop price per quintal",
+                    data: mspnextyear,
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "Min crop price per quintal",
+                    data: avgPriceNextyear,
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+          </script>
+    </div>
+    <footer>
+        
+    </footer>
+<script src="/static/script/result.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color:rgba(165, 227, 227, 0.1);
+}
+nav{
+    height:100px;
+    width:100%;
+    background-color:rgba(169, 118, 181, 0.2);
+    margin:0px;
+    padding:0px;
+    display: flex;
+}
+nav a{
+    cursor: pointer;
+    display: flex;
+    width:100px;
+    height:50px;
+    margin:30px 100px auto auto;
+    text-decoration: none;
+    color:rgb(0, 161, 19);
+    font-family: cursive;
+    font-weight:500;
+    font-size:20px;
+    background-color:rgb(197, 197, 197);
+    align-items: center;
+    justify-content: center;
+}
+
+nav a:hover{
+    background-color:rgb(238, 239, 240);
+}
+
+.container{
+    display: inline-block;
+    margin-top:25px;
+    margin-left:50px;
+    color:green;
+    font-size:30px;
+}
+nav h2{
+    margin:0px;
+    padding:0px;
+}
