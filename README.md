@@ -89,7 +89,7 @@ http://127.0.0.1:5000
 Clone the project
 
 ```
-  git clone https://github.com/ovuiproduction/Crop_Price_Predictor_Using-Random-Forest-Supervised-Machine-Learning-.git
+  git clone https://github.com/ovuiproduction/Crop-Price-Prediction-Using-Random-Forest.git
 ```
 
 Go to the project directory
