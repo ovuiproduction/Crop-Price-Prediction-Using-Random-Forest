@@ -76,15 +76,12 @@ To deploy this project
 
 ```
 
-```After running command successfully project is active on this link
+### After running command successfully project is active on this link
+```
 
 http://127.0.0.1:5000
 
 ```
-
-## Documentation
-
-[Documentation](https://drive.google.com/drive/folders/14cs2C_AFZbujImscB6uY-aX1RmSmF_tb?usp=sharing)
 
 
 ## Run Locally
