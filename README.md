@@ -111,12 +111,6 @@ Start the server
 ```
 
 
-## Demo
-
-Demo Video link
-
-(https://drive.google.com/drive/folders/1RtQuL1ES1gaHTH7yepRGE3mqI8t23SsS?usp=sharing)
-
 ## Contributors
 
 1. Onkar Waghmode
