@@ -127,3 +127,8 @@ nav p{
     font-size: 25px; 
     font-family: sans-serif
 }
+.label-graph-axes{
+    padding:0.5rem;
+    padding-left:0px;
+    color:gray;
+}

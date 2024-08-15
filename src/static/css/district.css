@@ -44,5 +44,10 @@ nav h1{
 
 .crop_sowingdata_bar{
     width:80%;
-    margin:100px auto auto auto;
+    margin:2rem auto auto auto;
+}
+.label-graph-axes{
+    padding:0px;
+    margin:0px;
+    color:gray;
 }

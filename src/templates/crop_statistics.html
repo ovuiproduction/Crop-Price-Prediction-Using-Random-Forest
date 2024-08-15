@@ -191,7 +191,7 @@
             const crop_state_data = crop_state_data_string
               .split(",")
               .map(Number);
-              console.log(crop_state_data)
+
             const ctxpie = document.getElementById("myChartpie");
             new Chart(ctxpie, {
               type: "pie",
@@ -199,7 +199,7 @@
                 labels: ["Jowar", "Bajara", "cotton", "sugarcane", "wheat"],
                 datasets: [
                   {
-                    label: "crop sowing data",
+                    label: "Total farmer count",
                     data: crop_state_data,
                     borderWidth: 1,
                   },
@@ -213,6 +213,7 @@
         <h4 style="color: gray; margin-bottom: 30px">
           Crop Sowing Data In Maharashtra
         </h4>
+        <p class="label-graph-axes">On X-axes : Commodity & Y-axes : Count of farmers</p>
         <div style="width: 800px !important; height: 400px !important">
           <canvas id="myChartbar"></canvas>
         </div>
@@ -225,7 +226,7 @@
               labels: ["Jowar", "Bajara", "cotton", "sugarcane", "wheat"],
               datasets: [
                 {
-                  label: "crop sowing data",
+                  label: "Total farmer count",
                   data: crop_state_data,
                   borderWidth: 1,
                 },

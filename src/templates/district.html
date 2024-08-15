@@ -16,12 +16,20 @@
 
 
    <div class="crop_sowingdata_bar">
-        <h2 style="color:gray;margin-bottom:40px;">Distric Wise</h2>
+        <h2 style="color:gray;margin-bottom:40px;">Crop Wise</h2>
+        <p class="label-graph-axes">On X-axes : Crops & Y-axes : Count of farmers</p>
         <div  style="width:800px !important;height:400px !important;" >
             <canvas id="myChart"></canvas>
           </div>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script>
+            let crop_frequency_string = JSON.parse(
+              '{{ crop_frequency|tojson|safe }}'
+            );
+            crop_frequency_string = crop_frequency_string.slice(1, -1);
+            const crop_frequency = crop_frequency_string
+              .split(",")
+              .map(Number);
             const ctx = document.getElementById('myChart');
             new Chart(ctx, {
               type: 'bar',
@@ -29,7 +37,7 @@
                 labels: ['Jowar','Bajara','cotton','sugarcane','wheat'],
                 datasets: [{
                   label: 'crop sowing Frequency',
-                  data: {{crop_frequency}},
+                  data: crop_frequency,
                   borderWidth: 1
                 }]
               },

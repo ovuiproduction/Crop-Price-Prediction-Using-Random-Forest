@@ -14,14 +14,22 @@
         <a href="/crop_statistics">Back</a>
     </nav>
 
-
    <div class="crop_sowingdata_bar">
         <h2 style="color:gray;margin-bottom:40px;">Distric Wise</h2>
+        <p class="label-graph-axes">On X-axes : Districts & Y-axes : Count of farmers</p>
         <div  style="width:800px !important;height:400px !important;" >
             <canvas id="myChart"></canvas>
           </div>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script>
+            let commodity_data_string = JSON.parse(
+              '{{ commodity_data|tojson|safe }}'
+            );
+            commodity_data_string = commodity_data_string.slice(1, -1);
+            const commodity_data = commodity_data_string
+              .split(",")
+              .map(Number);
+
             const ctx = document.getElementById('myChart');
             new Chart(ctx, {
               type: 'bar',
@@ -29,7 +37,7 @@
                 labels: ['solapur','Nanded','Buldhana','Amravati','sambhajinagar'],
                 datasets: [{
                   label: 'crop sowing ratio',
-                  data: {{jowardata}},
+                  data: commodity_data,
                   borderWidth: 1
                 }]
               },
