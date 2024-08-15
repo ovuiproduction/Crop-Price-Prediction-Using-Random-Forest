@@ -3,3 +3,4 @@ scikit-learn
 pandas
 numpy
 joblib
+Flask-PyMongo
