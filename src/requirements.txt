@@ -4,3 +4,4 @@ pandas
 numpy
 joblib
 Flask-PyMongo
+dotenv
