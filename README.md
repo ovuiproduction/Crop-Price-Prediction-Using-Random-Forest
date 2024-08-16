@@ -12,7 +12,7 @@ This proposed system aims to enhance agricultural price prediction by analyzing 
 
 Frontend : Html5 , CSS , javascript , Flask Module.
 
-DataBase : Mysql,csv files.
+DataBase : csv files for ML Model , MongoDB.
 
 Machine learning : Jupyter , python.
 
