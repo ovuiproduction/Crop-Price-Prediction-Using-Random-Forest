@@ -40,10 +40,24 @@
     </nav>
     <form action="/cropDetailsSubmited" method="post">
         <div class="formcontent">
-            <input name="commodityname" type="text" placeholder="Commodity Name">
+             <select name="commodityname">
+            <option value="">Commodity Name</option>
+            <option value="Jowar">Jowar</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Bajra">Bajra</option>
+            <option value="Sugarcane">Sugarcane</option>
+            <option value="Cotton">Cotton</option>
+          </select>
         </div>
         <div class="formcontent">
-            <input name="district" type="text" placeholder="District">
+            <select name="district">
+              <option value="">District</option>
+              <option value="Solapur">Solapur</option>
+              <option value="Nanded">Nanded</option>
+              <option value="Amravati">Amravati</option>
+              <option value="Sambhajinagar">Sambhajinagar</option>
+              <option value="Buldhana">Buldhana</option>
+            </select>
         </div>
         <button class="submitbtn">Submit</button>
       </form>
