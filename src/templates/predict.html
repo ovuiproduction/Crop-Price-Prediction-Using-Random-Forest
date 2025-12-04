@@ -44,7 +44,14 @@
         <form action="/result" method="post">
         <div class="formcontent">
             <label for="commodityname">CommodityName</label>
-            <input name="commodityname" type="text" placeholder="Ex 'Jowar'">
+            <select name="commodityname" required>
+                <option value="">-- Select commodity --</option>
+                <option value="Jowar">Jowar</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Sugarcane">Sugarcane</option>
+                <option value="Bajara">Bajara</option>
+            </select>
         </div>
         <div class="formcontent">
             <label for="month">Month</label>
@@ -61,8 +68,11 @@
       
         <div class="formcontent">
             <label for="checkbox">Are you sure to continue ?</label>
-            <input id="checkbox" type="checkbox">
+            <input id="checkbox" name="confirm" type="checkbox" required>
         </div>
+        {% if error %}
+        <div class="formcontent" style="color:crimson">{{ error }}</div>
+        {% endif %}
         <button class="submitbtn">Submit</button>
         </form>
     </div>

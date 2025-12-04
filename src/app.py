@@ -1,6 +1,7 @@
-from flask import Flask,request, render_template
+from flask import Flask, request, render_template
 import numpy as np
 import pickle
+import joblib
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
@@ -11,13 +12,33 @@ load_dotenv()
 
 MONGO_URL = os.getenv("MONGO_URL")
 
-#loading models
-Jmodel = pickle.load(open('jmodel.pkl','rb'))
-Wmodel = pickle.load(open('wmodel.pkl','rb'))
-Cmodel = pickle.load(open('cmodel.pkl','rb'))
-Smodel = pickle.load(open('smodel.pkl','rb'))
-Bmodel = pickle.load(open('bmodel.pkl','rb'))
-preprocessor = pickle.load(open('preprocessor.pkl','rb'))
+
+# Robust model loader: try joblib (recommended), then fall back to pickle files.
+def _safe_load_model(*paths):
+    """Try loading a model from multiple candidate paths. Returns None on failure."""
+    for p in paths:
+        try:
+            if os.path.exists(p):
+                # Try joblib first
+                try:
+                    return joblib.load(p)
+                except Exception:
+                    # fallback to pickle
+                    with open(p, 'rb') as f:
+                        return pickle.load(f)
+        except Exception as e:
+            # continue to next candidate
+            continue
+    return None
+
+
+# loading models (look in a `models/` directory first, then root filenames)
+Jmodel = _safe_load_model('models/jmodel.joblib', 'models/jmodel.pkl', 'jmodel.joblib', 'jmodel.pkl')
+Wmodel = _safe_load_model('models/wmodel.joblib', 'models/wmodel.pkl', 'wmodel.joblib', 'wmodel.pkl')
+Cmodel = _safe_load_model('models/cmodel.joblib', 'models/cmodel.pkl', 'cmodel.joblib', 'cmodel.pkl')
+Smodel = _safe_load_model('models/smodel.joblib', 'models/smodel.pkl', 'smodel.joblib', 'smodel.pkl')
+Bmodel = _safe_load_model('models/bmodel.joblib', 'models/bmodel.pkl', 'bmodel.joblib', 'bmodel.pkl')
+preprocessor = _safe_load_model('models/preprocessor.joblib', 'models/preprocessor.pkl', 'preprocessor.joblib', 'preprocessor.pkl')
 
 #flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -27,6 +48,31 @@ app.config["MONGO_URI"] = MONGO_URL
 mongo = PyMongo(app)
 
 collection = mongo.db.crop_statistics
+
+# Log model loading status (useful for startup checks)
+_loaded = {
+    'Jmodel': Jmodel is not None,
+    'Wmodel': Wmodel is not None,
+    'Cmodel': Cmodel is not None,
+    'Smodel': Smodel is not None,
+    'Bmodel': Bmodel is not None,
+    'preprocessor': preprocessor is not None,
+}
+print('Model availability:', _loaded)
+
+
+@app.route('/health')
+def health():
+    """Health endpoint reporting model availability and basic DB connectivity."""
+    try:
+        # quick DB ping
+        count = collection.count_documents({})
+    except Exception:
+        count = None
+    return {
+        'models': _loaded,
+        'db_records': count
+    }
 
 @app.route('/')
 def index():
@@ -257,17 +303,48 @@ def sambhajinagar():
         commodityindex = commoditylist.index(dataele.get('commodity'))
         crop_frequency[commodityindex] = crop_frequency[commodityindex] + 1
 
-    return render_template('district.html',ID="Sambhajinar",crop_frequency=json.dumps(crop_frequency))  
+    return render_template('district.html',ID="Sambhajinagar",crop_frequency=json.dumps(crop_frequency))  
 
 
 @app.route('/result',methods=['POST'])
 def result():
     if request.method == 'POST':
-        commoditytype = request.form['commodityname']
-        month  = request.form['month']
-        Year = request.form['year']
+        # basic server-side validation and parsing
+        allowed_commodities = ['Jowar','Wheat','Cotton','Sugarcane','Bajara']
+        commoditytype = request.form.get('commodityname', '').strip()
+        month_raw = request.form.get('month', '')
+        Year_raw = request.form.get('year', '')
+        average_rain_fall_raw = request.form.get('average_rain_fall', '')
+        confirm = request.form.get('confirm')
+
+        if not confirm:
+            return render_template('predict.html', error='Please confirm before submitting.')
+
+        if commoditytype not in allowed_commodities:
+            return render_template('predict.html', error='Please select a valid commodity.')
+
+        try:
+            month = int(month_raw)
+            if month < 1 or month > 12:
+                raise ValueError()
+        except Exception:
+            return render_template('predict.html', error='Month must be an integer between 1 and 12.')
+
+        try:
+            Year = int(Year_raw)
+        except Exception:
+            return render_template('predict.html', error='Year must be a valid integer.')
+
         NextYear = int(Year) + 1
-        average_rain_fall = request.form['average_rain_fall'] 
+
+        try:
+            average_rain_fall = float(average_rain_fall_raw)
+        except Exception:
+            return render_template('predict.html', error='Average rainfall must be a number (mm).')
+
+        # ensure preprocessor and models are available
+        if preprocessor is None:
+            return render_template('predict.html', error='Preprocessor not available on server. Contact admin.')
 
         avgPriceyear = []
         mspyear = []
@@ -289,11 +366,16 @@ def result():
                     ]
         
 
-        features = np.array([[month,Year,average_rain_fall]],dtype=object)
-        transformed_features = preprocessor.transform(features)
+        features = np.array([[int(month), int(Year), float(average_rain_fall)]], dtype=object)
+        try:
+            transformed_features = preprocessor.transform(features)
+        except Exception as e:
+            return render_template('predict.html', error='Failed to transform input features: {}'.format(str(e)))
 
         if(commoditytype == "Jowar"):
             cropface = cropimges[0]
+            if Jmodel is None:
+                return render_template('predict.html', error='Jowar model is not available on the server.')
             prediction = Jmodel.predict(transformed_features).reshape(1,-1)
             predicted_value = round(prediction[0][0] , 3)
             min_value = round((predicted_value*1550)/100,2)
@@ -325,6 +407,8 @@ def result():
 
         elif(commoditytype == "Wheat"):
             cropface = cropimges[1]
+            if Wmodel is None:
+                return render_template('predict.html', error='Wheat model is not available on the server.')
             prediction = Wmodel.predict(transformed_features).reshape(1,-1)
             predicted_value = round(prediction[0][0] , 3)
             min_value = round((predicted_value*1350)/100,2)
@@ -356,6 +440,8 @@ def result():
         
         elif(commoditytype == "Cotton"):
             cropface = cropimges[2]
+            if Cmodel is None:
+                return render_template('predict.html', error='Cotton model is not available on the server.')
             prediction = Cmodel.predict(transformed_features).reshape(1,-1)
             predicted_value = round(prediction[0][0] , 3)
             min_value = round((predicted_value*3600)/100,2)
@@ -387,6 +473,8 @@ def result():
         
         elif(commoditytype == "Sugarcane"):
             cropface = cropimges[3]
+            if Smodel is None:
+                return render_template('predict.html', error='Sugarcane model is not available on the server.')
             prediction = Smodel.predict(transformed_features).reshape(1,-1)
             predicted_value = round(prediction[0][0] , 3)
             min_value = round((predicted_value*2250)/100,2)
@@ -418,6 +506,8 @@ def result():
         
         elif(commoditytype == "Bajara"):
             cropface = cropimges[4]
+            if Bmodel is None:
+                return render_template('predict.html', error='Bajara model is not available on the server.')
             prediction = Bmodel.predict(transformed_features).reshape(1,-1)
             predicted_value = round(prediction[0][0] , 3)
             min_value = round((predicted_value*1175)/100,2)
@@ -461,26 +551,27 @@ def result():
         
 
 
-        return render_template('result.html',prediction = predicted_value,
-                                             cropface = cropface,
-                                             min_value = min_value,
-                                             max_value = max_value,
-                                             avg_value= avg_value,
-                                             year = Year,
-                                             NextYear = NextYear,
-                                             month = month,
-                                             maxhigh = maxmspyear,
-                                             maxlow = maxavgPriceyear,
-                                             minhigh = minmspyear,
-                                             minlow = minavgPriceyear,
-                                             goldmonth = goldmonthindex,
-                                             silvermonth = silvermonthindex,
-                                             months_labels = months_labels,
-                                             mspyear = json.dumps(mspyear),
-                                             minPriceYear = json.dumps(avgPriceyear),
-                                             mspnextyear = json.dumps(mspnextyear),
-                                             minPriceNextYear = json.dumps(avgPriceNextyear)
-                                             )
+        # Pass native Python lists to templates and let Jinja's tojson handle serialization
+        return render_template('result.html', prediction=predicted_value,
+                             cropface=cropface,
+                             min_value=min_value,
+                             max_value=max_value,
+                             avg_value=avg_value,
+                             year=Year,
+                             NextYear=NextYear,
+                             month=month,
+                             maxhigh=maxmspyear,
+                             maxlow=maxavgPriceyear,
+                             minhigh=minmspyear,
+                             minlow=minavgPriceyear,
+                             goldmonth=goldmonthindex,
+                             silvermonth=silvermonthindex,
+                             months_labels=months_labels,
+                             mspyear=mspyear,
+                             minPriceYear=avgPriceyear,
+                             mspnextyear=mspnextyear,
+                             minPriceNextYear=avgPriceNextyear
+                             )
 
 if __name__=="__main__":
     port = int(os.environ.get('PORT', 5000))

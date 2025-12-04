@@ -44,31 +44,15 @@
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           
           <script>
-            let mspyearString = JSON.parse('{{ mspyear|tojson|safe }}');
-            mspyearString  = mspyearString.slice(1,-1);
-            const mspyear = mspyearString.split(',').map(Number);  
-    
-            let minPriceYearString = JSON.parse('{{ minPriceYear|tojson|safe }}');
-            minPriceYearString  = minPriceYearString.slice(1,-1);
-            const avgPriceyear = minPriceYearString.split(',').map(Number);  
-    
+            const mspyear = {{ mspyear|tojson }};
+            const avgPriceyear = {{ minPriceYear|tojson }};
+
             const ctx = document.getElementById("myChart");
             const chart = new Chart(ctx, {
               type: "line",
               data: {
                 labels: [
-                  "jan",
-                  "feb",
-                  "march",
-                  "April",
-                  "may",
-                  "june",
-                  "july",
-                  "aug",
-                  "sept",
-                  "oct",
-                  "nov",
-                  "dec",
+                  "jan","feb","march","April","may","june","july","aug","sept","oct","nov","dec"
                 ],
                 datasets: [
                   {
@@ -107,33 +91,15 @@
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           
           <script>
-            let mspnextyearString = JSON.parse('{{ mspnextyear|tojson|safe }}');
-            mspnextyearString  = mspnextyearString.slice(1,-1);
-            const mspnextyear = mspnextyearString.split(',').map(Number);  
-        
-            let minPriceNextYearString = JSON.parse('{{ minPriceNextYear|tojson|safe }}');
-            minPriceNextYearString  = minPriceNextYearString.slice(1,-1);
-            const avgPriceNextyear = minPriceNextYearString.split(',').map(Number);  
-    
+            const mspnextyear = {{ mspnextyear|tojson }};
+            const avgPriceNextyear = {{ minPriceNextYear|tojson }};
+
             const ctx1 = document.getElementById("myChart1");
-    
+
             new Chart(ctx1, {
               type: "line",
               data: {
-                labels: [
-                  "jan",
-                  "feb",
-                  "march",
-                  "April",
-                  "may",
-                  "june",
-                  "july",
-                  "aug",
-                  "sept",
-                  "oct",
-                  "nov",
-                  "dec",
-                ],
+                labels: ["jan","feb","march","April","may","june","july","aug","sept","oct","nov","dec"],
                 datasets: [
                   {
                     label: "Max crop price per quintal",
